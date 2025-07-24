@@ -1,0 +1,51 @@
+{
+  "HomePage": {
+    "title": "智能短链接",
+    "subtitle": "缩短、自定义并追踪您的链接，配备AI驱动的洞察",
+    "form_title": "输入您的长链接",
+    "form_placeholder": "https://example.com/very-long-url...",
+    "form_customize": "自定义您的链接",
+    "form_alias_placeholder": "自定义别名（可选）",
+    "form_terms": "我同意{terms}、{privacy}和{cookies}",
+    "form_button": "缩短链接",
+    "form_button_loading": "正在缩短...",
+    "result_original_url": "原始链接",
+    "result_short_url": "短链接",
+    "result_visit": "访问",
+    "result_qrcode": "二维码",
+    "result_share": "分享",
+    "result_copy": "复制",
+    "result_ai_insights": "AI洞察",
+    "result_get_analytics": "数据分析",
+    "result_my_urls": "我的链接",
+    "result_shorten_another": "新链接",
+    "marketing_promo_text": "加入数千名信任我们平台进行链接管理的用户。",
+    "marketing_create_account": "创建免费账户",
+    "marketing_features_title": "为什么选择我们的平台？",
+    "marketing_feature_1": "高级分析",
+    "marketing_feature_2": "自定义域名",
+    "marketing_feature_3": "闪电般快速",
+    "marketing_feature_4": "安全可靠",
+    "marketing_feature_5": "用户友好",
+    "marketing_feature_6": "API访问"
+  },
+  "Toasts": {
+    "copy_success_title": "已复制！",
+    "copy_success_message": "链接已复制到剪贴板"
+  },
+  "Popups": {
+    "cookie_title": "Cookie同意",
+    "cookie_message": "我们使用cookies来增强您的体验。继续访问此站点即表示您同意我们使用cookies。",
+    "cookie_learn_more": "了解更多",
+    "cookie_accept": "接受",
+    "qrcode_title": "{url}的二维码",
+    "download_png": "下载PNG",
+    "close": "关闭",
+    "share_title": "分享您的链接"
+  },
+  "Errors": {
+    "alias_min_length": "自定义别名至少需要5个字符",
+    "creation_failed": "创建短链接失败",
+    "network_error": "网络错误"
+  }
+}

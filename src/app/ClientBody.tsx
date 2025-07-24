@@ -2,7 +2,6 @@
 
 import { SessionProvider } from 'next-auth/react';
 import { Inter } from 'next/font/google';
-import { Header } from '@/components/layout/Header';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -13,10 +12,7 @@ export default function ClientBody({
 }) {
   return (
     <body className={`${inter.className} bg-blue-800`}>
-      <SessionProvider>
-        <Header />
-        {children}
-      </SessionProvider>
+      {children}
     </body>
   );
 }

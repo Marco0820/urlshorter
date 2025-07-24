@@ -1,0 +1,51 @@
+{
+  "HomePage": {
+    "title": "Smart URL Shortener",
+    "subtitle": "Shorten, customize, and track your links with AI-powered insights",
+    "form_title": "Enter your long URL",
+    "form_placeholder": "https://example.com/very-long-url...",
+    "form_customize": "Customize your link",
+    "form_alias_placeholder": "custom-alias (optional)",
+    "form_terms": "I agree to the {terms}, {privacy}, and {cookies}",
+    "form_button": "Shorten URL",
+    "form_button_loading": "Shortening...",
+    "result_original_url": "Original URL",
+    "result_short_url": "Short URL",
+    "result_visit": "Visit",
+    "result_qrcode": "QR Code",
+    "result_share": "Share",
+    "result_copy": "Copy",
+    "result_ai_insights": "AI Insights",
+    "result_get_analytics": "Analytics",
+    "result_my_urls": "My URLs",
+    "result_shorten_another": "New URL",
+    "marketing_promo_text": "Join thousands of users who trust our platform for their link management needs.",
+    "marketing_create_account": "Create Free Account",
+    "marketing_features_title": "Why Choose Our Platform?",
+    "marketing_feature_1": "Advanced Analytics",
+    "marketing_feature_2": "Custom Domains",
+    "marketing_feature_3": "Lightning Fast",
+    "marketing_feature_4": "Secure & Reliable",
+    "marketing_feature_5": "User Friendly",
+    "marketing_feature_6": "API Access"
+  },
+  "Toasts": {
+    "copy_success_title": "Copied!",
+    "copy_success_message": "URL copied to clipboard"
+  },
+  "Popups": {
+    "cookie_title": "Cookie Consent",
+    "cookie_message": "We use cookies to enhance your experience. By continuing to visit this site you agree to our use of cookies.",
+    "cookie_learn_more": "Learn More",
+    "cookie_accept": "Accept",
+    "qrcode_title": "QR Code for {url}",
+    "download_png": "Download PNG",
+    "close": "Close",
+    "share_title": "Share Your Link"
+  },
+  "Errors": {
+    "alias_min_length": "Custom alias must be at least 5 characters long",
+    "creation_failed": "Failed to create short URL",
+    "network_error": "Network error occurred"
+  }
+}

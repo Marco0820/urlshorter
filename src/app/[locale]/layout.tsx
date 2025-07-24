@@ -1,7 +1,9 @@
+// src/app/[locale]/layout.tsx
 import { Inter } from "next/font/google";
 import {NextIntlClientProvider} from 'next-intl';
 import {getMessages, setRequestLocale} from 'next-intl/server';
 import ClientBody from "../ClientBody";
+import { Header } from "@/components/layout/Header";
 import Providers from "../Providers";
 import "../globals.css";
 
@@ -27,8 +29,9 @@ export default async function RootLayout({
     <html lang={locale}>
       <body className={inter.className}>
         <NextIntlClientProvider locale={locale} messages={messages}>
-          <Providers>
+          <Providers> {/* Providers 组件应该包含 SessionProvider */}
             <ClientBody>
+              <Header />
               {children}
             </ClientBody>
           </Providers>
@@ -36,4 +39,4 @@ export default async function RootLayout({
       </body>
     </html>
   );
-} 
+}

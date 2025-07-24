@@ -10,9 +10,20 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useSession, signIn, signOut } from 'next-auth/react';
+import { useTranslations } from 'next-intl';
+import { Languages } from 'lucide-react';
 
 export function Header() {
   const { data: session } = useSession();
+  const t = useTranslations('Header');
+
+  const handleLocaleChange = (newLocale: string) => {
+    // Manually construct the new path
+    const currentPath = window.location.pathname;
+    const pathSegments = currentPath.split('/');
+    pathSegments[1] = newLocale;
+    window.location.pathname = pathSegments.join('/');
+  };
 
   return (
     <header className="px-4 lg:px-20 py-6 relative z-10 bg-blue-800">
@@ -29,57 +40,75 @@ export function Header() {
             <div className="flex items-center bg-tinyurl-teal rounded">
               <Link href="/" passHref>
                 <Button variant="ghost" className="text-white hover:bg-white/10 px-4 py-2 rounded">
-                  首页
+                  {t('home')}
                 </Button>
               </Link>
               <Link href="/my-urls" passHref>
                 <Button variant="ghost" className="text-white hover:bg-white/10 px-4 py-2 rounded">
-                  我的链接
+                  {t('myUrls')}
                 </Button>
               </Link>
               <Button variant="ghost" className="text-white hover:bg-white/10 px-4 py-2 rounded hidden" disabled>
-                套餐
+                {t('plans')}
               </Button>
               <Button variant="ghost" className="text-white hover:bg-white/10 px-4 py-2 rounded" disabled>
-                博客
+                {t('blog')}
               </Button>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button variant="ghost" className="text-white hover:bg-white/10 px-4 py-2 rounded">
-                    功能
+                    {t('features')}
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
                   <DropdownMenuItem asChild>
-                    <Link href="/features/custom-links">Custom Links</Link>
+                    <Link href="/features/custom-links">{t('customLinks')}</Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
-                    <Link href="/features/branded-domains">Branded Domains</Link>
+                    <Link href="/features/branded-domains">{t('brandedDomains')}</Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
-                    <Link href="/features/link-analytics">Link Analytics</Link>
+                    <Link href="/features/link-analytics">{t('linkAnalytics')}</Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
-                    <Link href="/features/how-it-works">How It Works</Link>
+                    <Link href="/features/how-it-works">{t('howItWorks')}</Link>
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
               {session ? (
                 <Button variant="ghost" className="text-white hover:bg-white/10 px-4 py-2 rounded" onClick={() => signOut()}>
-                  登出
+                  {t('signOut')}
                 </Button>
               ) : (
                 <>
                   <Button variant="ghost" className="text-white hover:bg-white/10 px-4 py-2 rounded" onClick={() => signIn('google')}>
-                    注册
+                    {t('signUp')}
                   </Button>
                   <Button variant="ghost" className="text-white hover:bg-white/10 px-4 py-2 rounded" onClick={() => signIn('google')}>
-                    登录
+                    {t('logIn')}
                   </Button>
                 </>
               )}
             </div>
           </div>
+        </div>
+
+        <div className="justify-self-end flex items-center">
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" size="icon" className="text-white hover:bg-white/10">
+                <Languages className="h-5 w-5" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuItem onClick={() => handleLocaleChange('en')}>
+                English
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => handleLocaleChange('zh')}>
+                中文
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
       </nav>
     </header>
