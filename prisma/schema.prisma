@@ -37,19 +37,31 @@ model Url {
 }
 
 model Click {
-  id        String   @id @default(cuid())
-  urlId     String
-  url       Url      @relation(fields: [urlId], references: [id])
-  timestamp DateTime @default(now())
-  ipAddress String?
-  userAgent String?
-  referrer  String?
-  country   String?
-  city      String?
-  device    String?
-  browser   String?
-  os        String?
-  isBot     Boolean  @default(false)
+  id             String   @id @default(cuid())
+  urlId          String
+  url            Url      @relation(fields: [urlId], references: [id])
+  timestamp      DateTime @default(now())
+  ipAddress      String?
+  userAgent      String?
+  referrer       String?
+  country        String?
+  city           String?
+  region         String?
+  latitude       Float?
+  longitude      Float?
+  device         String?
+  browser        String?
+  browserVersion String?
+  os             String?
+  osVersion      String?
+  isBot          Boolean  @default(false)
+
+  // UTM parameters
+  utmSource   String?
+  utmMedium   String?
+  utmCampaign String?
+  utmTerm     String?
+  utmContent  String?
 }
 
 model ABTest {
