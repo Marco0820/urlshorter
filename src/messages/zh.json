@@ -6,11 +6,7 @@
     "form_placeholder": "https://example.com/very-long-url...",
     "form_customize": "自定义您的链接",
     "form_alias_placeholder": "自定义别名（可选）",
-    "form_terms_agree": "我同意",
-    "form_terms_terms": "服务条款",
-    "form_terms_privacy": "隐私政策",
-    "form_terms_and": "和",
-    "form_terms_cookies": "Cookie政策",
+    "form_terms": "我同意<terms>服务条款</terms>、<privacy>隐私政策</privacy>和<cookies>Cookie政策</cookies>",
     "form_button": "缩短链接",
     "form_button_loading": "正在缩短...",
     "result_original_url": "原始链接",
@@ -32,6 +28,18 @@
     "marketing_feature_4": "安全可靠",
     "marketing_feature_5": "用户友好",
     "marketing_feature_6": "API访问"
+  },
+  "FeaturesSection": {
+    "title": "为何选择我们",
+    "subtitle": "探索我们URL缩短器的强大功能，使其成为您链接的最佳选择。",
+    "feature_1_title": "缩短与定制",
+    "feature_1_text": "创建易于分享的简短、难忘的链接。使用您自己的自定义别名来品牌化您的链接，使其脱颖而出。",
+    "feature_2_title": "追踪与分析",
+    "feature_2_text": "通过我们详细的分析，获取有关您链接表现的宝贵见解。追踪点击次数、地理位置、来源等。",
+    "feature_3_title": "安全与可靠",
+    "feature_3_text": "我们的平台在构建时就考虑到了安全性。我们提供可靠、快速的重定向，确保您的链接始终可以访问。",
+    "feature_4_title": "免费与易用",
+    "feature_4_text": "我们的URL缩短器免费使用，并且非常容易上手。缩短您的第一个链接无需帐户。"
   },
   "Toasts": {
     "copy_success_title": "已复制！",

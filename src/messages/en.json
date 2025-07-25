@@ -6,11 +6,7 @@
     "form_placeholder": "https://example.com/very-long-url...",
     "form_customize": "Customize your link",
     "form_alias_placeholder": "Custom alias (optional)",
-    "form_terms_agree": "I agree to the",
-    "form_terms_terms": "Terms of Service",
-    "form_terms_privacy": "Privacy Policy",
-    "form_terms_and": "and",
-    "form_terms_cookies": "Cookie Policy",
+    "form_terms": "I agree to the <terms>Terms of Service</terms>, <privacy>Privacy Policy</privacy>, and <cookies>Cookie Policy</cookies>",
     "form_button": "Shorten URL",
     "form_button_loading": "Shortening...",
     "result_original_url": "Original URL",
@@ -32,6 +28,18 @@
     "marketing_feature_4": "Secure & Reliable",
     "marketing_feature_5": "User-Friendly",
     "marketing_feature_6": "API Access"
+  },
+  "FeaturesSection": {
+    "title": "Why Our Platform Rocks",
+    "subtitle": "Discover the powerful features that make our URL shortener the best choice for your links.",
+    "feature_1_title": "Shorten & Customize",
+    "feature_1_text": "Create short, memorable links that are easy to share. Use your own custom alias to brand your links and make them stand out.",
+    "feature_2_title": "Track & Analyze",
+    "feature_2_text": "Gain valuable insights into your link performance with our detailed analytics. Track clicks, geographic location, referrers, and more.",
+    "feature_3_title": "Secure & Reliable",
+    "feature_3_text": "Our platform is built with security in mind. We provide reliable and fast redirects, ensuring your links are always accessible.",
+    "feature_4_title": "Free & Easy",
+    "feature_4_text": "Our URL shortener is free to use and incredibly easy to get started with. No account is required to shorten your first link."
   },
   "Toasts": {
     "copy_success_title": "Copied!",
