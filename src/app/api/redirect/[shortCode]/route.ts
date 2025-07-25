@@ -91,7 +91,7 @@ export async function GET(
           urlId: url.id,
           ipAddress,
           userAgent,
-          referer,
+          referrer: referer,
           browser: parsedAnalytics.browser,
           browserVersion: parsedAnalytics.browserVersion,
           os: parsedAnalytics.os,
