@@ -15,14 +15,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/analytics'
   ];
 
-  const sitemapEntries = locales.flatMap(locale =>
+  const pages = locales.flatMap(locale =>
     staticPages.map(page => ({
-      url: `https://urlshorter.cc/${locale}${page}`,
+      url: `https://urltiny.cc/${locale}${page}`,
       lastModified: new Date(),
       changeFrequency: 'weekly' as const,
       priority: page === '' ? 1.0 : 0.8,
     }))
   );
 
-  return sitemapEntries;
+  return pages;
 } 

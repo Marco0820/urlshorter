@@ -28,7 +28,7 @@ export default function Home() {
   const { data: session } = useSession();
   const [longUrl, setLongUrl] = useState('');
   const [customAlias, setCustomAlias] = useState('');
-  const [domain, setDomain] = useState('urlshorter.cc');
+  const [domain, setDomain] = useState('urltiny.cc');
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<any>(null);
   const [error, setError] = useState('');
@@ -182,7 +182,7 @@ a.click();
                               <SelectValue />
                             </SelectTrigger>
                             <SelectContent>
-                              <SelectItem value="urlshorter.cc">urlshorter.cc</SelectItem>
+                              <SelectItem value="urltiny.cc">urltiny.cc</SelectItem>
                             </SelectContent>
                           </Select>
                           <Input

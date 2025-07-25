@@ -6,21 +6,20 @@ import ClientBody from "./ClientBody";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://urlshorter.cc'),
+  metadataBase: new URL('https://urltiny.cc'),
   title: {
-    default: 'URL Shortener - Shorten Long URLs | urlshorter.cc',
-    template: `%s | urlshorter.cc`,
+    default: 'Free URL Shortener - Create Short & Tiny URLs | urltiny.cc',
+    template: `%s | urltiny.cc`,
   },
-  description: "A fast and efficient URL shortener service, also known as TinyURL or bitly. Shorten, customize, and track your links with AI-powered insights. Best for creating short links for social media, email campaigns, and more.",
-  keywords: ['url shortener', 'tiny url', 'TinyURL', 'bitly', 'rebrandly', 'short url', 'short link', 'link shortener', 'custom url', 'branded links', 'free url shortener'],
+  description: "A free and easy-to-use URL shortener to change long URLs into short, tiny, and memorable links. Create custom URLs with our powerful link management platform.",
   openGraph: {
-    title: 'URL Shortener - urlshorter.cc',
-    description: 'The easiest way to shorten, track, and manage your links.',
-    url: 'https://urlshorter.cc',
-    siteName: 'urlshorter.cc',
+    title: 'Free URL Shortener - urltiny.cc',
+    description: 'The easiest way to shorten, create, and share tiny URLs.',
+    url: 'https://urltiny.cc',
+    siteName: 'urltiny.cc',
     images: [
       {
-        url: '/og-image.png', // To be created
+        url: '/og-image.png',
         width: 1200,
         height: 630,
       },
@@ -41,12 +40,12 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'URL Shortener - urlshorter.cc',
-    description: 'Shorten and manage your links with the best URL shortener.',
-    // creator: '@yourtwitterhandle',
-    images: ['/twitter-image.png'], // To be created
+    title: 'Free URL Shortener - urltiny.cc',
+    description: 'Change long URLs into tiny, shareable links in seconds.',
+    images: ['/og-image.png'],
   },
 };
+
 
 export default function RootLayout({
   children,
@@ -55,11 +54,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <ClientBody>
-          {children}
-        </ClientBody>
-      </body>
+      <ClientBody>
+        {children}
+      </ClientBody>
     </html>
   );
 }

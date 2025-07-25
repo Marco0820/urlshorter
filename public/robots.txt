@@ -1,10 +1,14 @@
-# Allow all user agents to crawl the site
+# *
 User-agent: *
 Allow: /
 
-# Disallow crawling of specific directories
-Disallow: /api/
-Disallow: /admin/
+# Google AdSense
+User-agent: Mediapartners-Google
+Allow: /
 
-# Sitemap location
-Sitemap: https://urlshorter.cc/sitemap.xml 
+# Google
+User-agent: Googlebot
+Allow: /
+Disallow: /api/ # Do not crawl API routes
+
+Sitemap: https://urltiny.cc/sitemap.xml 

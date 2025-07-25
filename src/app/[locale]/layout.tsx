@@ -32,7 +32,7 @@ export default async function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "SoftwareApplication",
-              "name": "urlshorter.cc",
+              "name": "urltiny.cc",
               "operatingSystem": "All",
               "applicationCategory": "Productivity",
               "aggregateRating": {

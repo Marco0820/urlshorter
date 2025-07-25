@@ -31,6 +31,7 @@ model Url {
   utmCampaign String?
   userId      String?
   user        User?     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  isActive    Boolean   @default(true)
   Click       Click[]
   ABTest      ABTest[]
 }
