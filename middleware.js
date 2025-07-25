@@ -6,9 +6,10 @@ const defaultLocale = 'zh';
 module.exports = createMiddleware({
   locales,
   defaultLocale,
-  localePrefix: 'always'
+  localePrefix: 'always',
+  localeDetection: false
 });
 
 module.exports.config = {
-  matcher: ['/((?!api|_next/static|_next/image|favicon.ico).*)']
+  matcher: ['/', '/(zh|en)/:path*']
 }; 

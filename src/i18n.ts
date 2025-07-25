@@ -16,5 +16,5 @@ export default getRequestConfig(async ({ locale }) => {
   console.log("Loading locale:", locale);
   console.log("Resolved path:", filePath);
   
-  return { messages };
+  return { messages, locale };
 });

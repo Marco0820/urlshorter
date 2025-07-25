@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useSession, signIn, signOut } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
-import { Languages } from 'lucide-react';
+import { Globe } from 'lucide-react';
 
 export function Header() {
   const { data: session } = useSession();
@@ -35,80 +35,81 @@ export function Header() {
             </h1>
           </Link>
         </div>
+        
         <div className="hidden md:flex items-center bg-tinyurl-teal rounded-lg col-start-2 justify-self-center">
-          <div className="flex items-center">
-            <div className="flex items-center bg-tinyurl-teal rounded">
-              <Link href="/" passHref>
-                <Button variant="ghost" className="text-white hover:bg-white/10 px-4 py-2 rounded">
-                  {t('home')}
-                </Button>
-              </Link>
-              <Link href="/my-urls" passHref>
-                <Button variant="ghost" className="text-white hover:bg-white/10 px-4 py-2 rounded">
-                  {t('myUrls')}
-                </Button>
-              </Link>
-              <Button variant="ghost" className="text-white hover:bg-white/10 px-4 py-2 rounded hidden" disabled>
-                {t('plans')}
+          <Link href="/" passHref>
+            <Button variant="ghost" className="text-white hover:bg-sky-500 hover:text-white px-4 py-2 rounded">
+              {t('home')}
+            </Button>
+          </Link>
+          <Link href="/link-management" passHref>
+            <Button variant="ghost" className="text-white hover:bg-sky-500 hover:text-white px-4 py-2 rounded">
+              {t('myUrls')}
+            </Button>
+          </Link>
+          <Button variant="ghost" className="text-white hover:bg-sky-500 hover:text-white px-4 py-2 rounded hidden" disabled>
+            {t('plans')}
+          </Button>
+          <Button variant="ghost" className="text-white hover:bg-sky-500 hover:text-white px-4 py-2 rounded" disabled>
+            {t('blog')}
+          </Button>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" className="text-white hover:bg-sky-500 hover:text-white px-4 py-2 rounded">
+                {t('features')}
               </Button>
-              <Button variant="ghost" className="text-white hover:bg-white/10 px-4 py-2 rounded" disabled>
-                {t('blog')}
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuItem asChild>
+                <Link href="/features/custom-links">{t('customLinks')}</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link href="/features/branded-domains">{t('brandedDomains')}</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link href="/features/link-analytics">{t('linkAnalytics')}</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link href="/features/how-it-works">{t('howItWorks')}</Link>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+          {session ? (
+            <Button variant="ghost" className="text-white hover:bg-sky-500 hover:text-white px-4 py-2 rounded" onClick={() => signOut()}>
+              {t('signOut')}
+            </Button>
+          ) : (
+            <>
+              <Button variant="ghost" className="text-white hover:bg-sky-500 hover:text-white px-4 py-2 rounded" onClick={() => signIn('google')}>
+                {t('signUp')}
               </Button>
-              <DropdownMenu>
+              <Button variant="ghost" className="text-white hover:bg-sky-500 hover:text-white px-4 py-2 rounded" onClick={() => signIn('google')}>
+                {t('logIn')}
+              </Button>
+            </>
+          )}
+
+          <div className="ml-4">
+            <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" className="text-white hover:bg-white/10 px-4 py-2 rounded">
-                    {t('features')}
+                  <Button variant="ghost" size="icon" className="text-white hover:bg-white/10">
+                    <Globe className="h-5 w-5" />
                   </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent>
-                  <DropdownMenuItem asChild>
-                    <Link href="/features/custom-links">{t('customLinks')}</Link>
+                <DropdownMenuContent align="end">
+                  <DropdownMenuItem onClick={() => handleLocaleChange('en')}>
+                    English
                   </DropdownMenuItem>
-                  <DropdownMenuItem asChild>
-                    <Link href="/features/branded-domains">{t('brandedDomains')}</Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild>
-                    <Link href="/features/link-analytics">{t('linkAnalytics')}</Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild>
-                    <Link href="/features/how-it-works">{t('howItWorks')}</Link>
+                  <DropdownMenuItem onClick={() => handleLocaleChange('zh')}>
+                    中文
                   </DropdownMenuItem>
                 </DropdownMenuContent>
-              </DropdownMenu>
-              {session ? (
-                <Button variant="ghost" className="text-white hover:bg-white/10 px-4 py-2 rounded" onClick={() => signOut()}>
-                  {t('signOut')}
-                </Button>
-              ) : (
-                <>
-                  <Button variant="ghost" className="text-white hover:bg-white/10 px-4 py-2 rounded" onClick={() => signIn('google')}>
-                    {t('signUp')}
-                  </Button>
-                  <Button variant="ghost" className="text-white hover:bg-white/10 px-4 py-2 rounded" onClick={() => signIn('google')}>
-                    {t('logIn')}
-                  </Button>
-                </>
-              )}
-            </div>
+            </DropdownMenu>
           </div>
         </div>
 
         <div className="justify-self-end flex items-center">
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="icon" className="text-white hover:bg-white/10">
-                <Languages className="h-5 w-5" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuItem onClick={() => handleLocaleChange('en')}>
-                English
-              </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => handleLocaleChange('zh')}>
-                中文
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+          {/* Placeholder for the third grid column */}
         </div>
       </nav>
     </header>

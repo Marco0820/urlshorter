@@ -18,17 +18,14 @@ export default async function RootLayout({
   params,
 }: {
   children: React.ReactNode;
-  params: Promise<{locale: string}>;
+  params: {locale: string};
 }) {
-  const { locale } = await params;
-  
-  setRequestLocale(locale);
   const messages = await getMessages();
 
   return (
-    <html lang={locale}>
-      <body className={inter.className}>
-        <NextIntlClientProvider locale={locale} messages={messages}>
+    <html lang={params.locale}>
+      <body className={`${inter.className} bg-blue-800`}>
+        <NextIntlClientProvider locale={params.locale} messages={messages}>
           <Providers> {/* Providers 组件应该包含 SessionProvider */}
             <ClientBody>
               <Header />

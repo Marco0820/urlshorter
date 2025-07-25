@@ -1,12 +1,16 @@
 {
   "HomePage": {
-    "title": "Smart URL Shortener",
-    "subtitle": "Shorten, customize, and track your links with AI-powered insights",
+    "title": "Intelligent Short URLs",
+    "subtitle": "Shorten, customize, and track your links with AI-powered insights.",
     "form_title": "Enter your long URL",
     "form_placeholder": "https://example.com/very-long-url...",
     "form_customize": "Customize your link",
-    "form_alias_placeholder": "custom-alias (optional)",
-    "form_terms": "I agree to the {terms}, {privacy}, and {cookies}",
+    "form_alias_placeholder": "Custom alias (optional)",
+    "form_terms_agree": "I agree to the",
+    "form_terms_terms": "Terms of Service",
+    "form_terms_privacy": "Privacy Policy",
+    "form_terms_and": "and",
+    "form_terms_cookies": "Cookie Policy",
     "form_button": "Shorten URL",
     "form_button_loading": "Shortening...",
     "result_original_url": "Original URL",
@@ -16,22 +20,22 @@
     "result_share": "Share",
     "result_copy": "Copy",
     "result_ai_insights": "AI Insights",
-    "result_get_analytics": "Analytics",
+    "result_get_analytics": "Get Analytics",
     "result_my_urls": "My URLs",
     "result_shorten_another": "New URL",
     "marketing_promo_text": "Join thousands of users who trust our platform for their link management needs.",
     "marketing_create_account": "Create Free Account",
-    "marketing_features_title": "Why Choose Our Platform?",
+    "marketing_features_title": "Why Our Platform?",
     "marketing_feature_1": "Advanced Analytics",
     "marketing_feature_2": "Custom Domains",
-    "marketing_feature_3": "Lightning Fast",
+    "marketing_feature_3": "Blazing Fast",
     "marketing_feature_4": "Secure & Reliable",
-    "marketing_feature_5": "User Friendly",
+    "marketing_feature_5": "User-Friendly",
     "marketing_feature_6": "API Access"
   },
   "Toasts": {
     "copy_success_title": "Copied!",
-    "copy_success_message": "URL copied to clipboard"
+    "copy_success_message": "Link copied to clipboard."
   },
   "Popups": {
     "cookie_title": "Cookie Consent",
@@ -41,11 +45,25 @@
     "qrcode_title": "QR Code for {url}",
     "download_png": "Download PNG",
     "close": "Close",
-    "share_title": "Share Your Link"
+    "share_title": "Share your link"
   },
   "Errors": {
-    "alias_min_length": "Custom alias must be at least 5 characters long",
-    "creation_failed": "Failed to create short URL",
-    "network_error": "Network error occurred"
+    "alias_min_length": "Custom alias must be at least 5 characters.",
+    "creation_failed": "Failed to create short URL.",
+    "network_error": "A network error occurred."
+  },
+  "Header": {
+    "home": "Home",
+    "myUrls": "My URLs",
+    "plans": "Plans",
+    "blog": "Blog",
+    "features": "Features",
+    "customLinks": "Custom Links",
+    "brandedDomains": "Branded Domains",
+    "linkAnalytics": "Link Analytics",
+    "howItWorks": "How It Works",
+    "signOut": "Sign Out",
+    "signUp": "Sign Up",
+    "logIn": "Log In"
   }
 }

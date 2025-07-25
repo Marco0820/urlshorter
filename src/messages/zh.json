@@ -6,7 +6,11 @@
     "form_placeholder": "https://example.com/very-long-url...",
     "form_customize": "自定义您的链接",
     "form_alias_placeholder": "自定义别名（可选）",
-    "form_terms": "我同意{terms}、{privacy}和{cookies}",
+    "form_terms_agree": "我同意",
+    "form_terms_terms": "服务条款",
+    "form_terms_privacy": "隐私政策",
+    "form_terms_and": "和",
+    "form_terms_cookies": "Cookie政策",
     "form_button": "缩短链接",
     "form_button_loading": "正在缩短...",
     "result_original_url": "原始链接",
@@ -47,5 +51,19 @@
     "alias_min_length": "自定义别名至少需要5个字符",
     "creation_failed": "创建短链接失败",
     "network_error": "网络错误"
+  },
+  "Header": {
+    "home": "首页",
+    "myUrls": "我的链接",
+    "plans": "套餐",
+    "blog": "博客",
+    "features": "功能",
+    "customLinks": "自定义链接",
+    "brandedDomains": "品牌域名",
+    "linkAnalytics": "链接分析",
+    "howItWorks": "工作原理",
+    "signOut": "退出登录",
+    "signUp": "注册",
+    "logIn": "登录"
   }
 }

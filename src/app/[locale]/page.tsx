@@ -199,11 +199,11 @@ export default function Home() {
                           className="h-5 w-5 rounded border-gray-300 text-blue-600 focus:ring-blue-500 mt-1"
                         />
                         <label htmlFor="terms" className="text-sm text-gray-600">
-                          {t.rich('form_terms', {
-                              terms: (chunks) => <a href="#" className="underline hover:text-blue-800 text-blue-600">{chunks}</a>,
-                              privacy: (chunks) => <a href="#" className="underline hover:text-blue-800 text-blue-600">{chunks}</a>,
-                              cookies: (chunks) => <a href="#" className="underline hover:text-blue-800 text-blue-600">{chunks}</a>,
-                          })}
+                          {t('form_terms_agree')}{' '}
+                          <Link href="/tos" className="underline hover:text-blue-800 text-blue-600">{t('form_terms_terms')}</Link>,{' '}
+                          <Link href="/privacy" className="underline hover:text-blue-800 text-blue-600">{t('form_terms_privacy')}</Link>,{' '}
+                          {t('form_terms_and')}{' '}
+                          <Link href="/cookies" className="underline hover:text-blue-800 text-blue-600">{t('form_terms_cookies')}</Link>
                         </label>
                       </div>
 
@@ -241,19 +241,19 @@ export default function Home() {
                        </div>
                        
                        <div className="grid grid-cols-4 gap-2 pt-2">
-                          <Button variant="outline" className="flex-col h-auto" onClick={() => window.open(result.shortUrl, '_blank')}>
+                          <Button variant="outline" className="flex-col h-auto text-white" onClick={() => window.open(result.shortUrl, '_blank')}>
                             <ArrowUpRightSquare className="w-5 h-5 mb-1" />
                             <span className="text-xs">{t('result_visit')}</span>
                           </Button>
-                          <Button variant="outline" className="flex-col h-auto" onClick={() => setShowQrCode(true)}>
+                          <Button variant="outline" className="flex-col h-auto text-white" onClick={() => setShowQrCode(true)}>
                             <QrCodeIcon className="w-5 h-5 mb-1" />
                             <span className="text-xs">{t('result_qrcode')}</span>
                           </Button>
-                          <Button variant="outline" className="flex-col h-auto relative" onClick={() => setShowShare(!showShare)}>
+                          <Button variant="outline" className="flex-col h-auto relative text-white" onClick={() => setShowShare(!showShare)}>
                             <Share2 className="w-5 h-5 mb-1" />
                             <span className="text-xs">{t('result_share')}</span>
                           </Button>
-                          <Button className="flex-col h-auto bg-green-600 hover:bg-green-700 text-white" onClick={handleCopy}>
+                          <Button variant="outline" className="flex-col h-auto text-white" onClick={handleCopy}>
                             <CopyIcon className="w-5 h-5 mb-1" />
                             <span className="text-xs">{t('result_copy')}</span>
                           </Button>
@@ -271,14 +271,14 @@ export default function Home() {
                        )}
  
                        <div className="flex items-center space-x-2 pt-2">
-                         <Button variant="outline" className="flex-1" onClick={() => alert('Coming soon!')}>
+                         <Button variant="outline" className="flex-1 text-white" onClick={() => alert('Coming soon!')}>
                            <BarChart3 className="w-4 h-4 mr-2" />
                            {t('result_get_analytics')}
                          </Button>
-                         <Link href="/my-urls" passHref className="flex-1">
-                           <Button variant="outline" className="w-full">{t('result_my_urls')}</Button>
+                         <Link href="/link-management" passHref className="flex-1">
+                           <Button variant="outline" className="w-full text-white">{t('result_my_urls')}</Button>
                          </Link>
-                         <Button onClick={handleShortenAnother} variant="outline" className="flex-1">{t('result_shorten_another')}</Button>
+                         <Button onClick={handleShortenAnother} variant="outline" className="flex-1 text-white">{t('result_shorten_another')}</Button>
                        </div>
                      </div>
                   )}
