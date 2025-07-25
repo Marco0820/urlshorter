@@ -52,7 +52,7 @@ export default function MyUrlsPage() {
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-3xl font-bold text-gray-800">My URLs</h1>
           <Link href="/" passHref>
-            <Button>Back to Home</Button>
+            <Button className="bg-blue-600 hover:bg-blue-700 text-white">Back to Home</Button>
           </Link>
         </div>
         
@@ -60,7 +60,7 @@ export default function MyUrlsPage() {
           <CardHeader>
             <CardTitle>Recently Generated Links</CardTitle>
             {urls.length > 0 && (
-              <Button variant="destructive" size="sm" onClick={handleClearHistory} className="mt-2">
+              <Button variant="destructive" size="sm" onClick={handleClearHistory} className="mt-2 bg-blue-600 hover:bg-blue-700 text-white">
                 <Trash2 className="w-4 h-4 mr-2" />
                 Clear History
               </Button>
@@ -81,14 +81,14 @@ export default function MyUrlsPage() {
                   {urls.map((url) => (
                     <TableRow key={url.shortCode}>
                       <TableCell>
-                        <a href={url.shortUrl} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline font-medium">
+                        <a href={url.shortUrl} target="_blank" rel="noopener noreferrer" className="bg-blue-600 text-white font-medium px-3 py-1 rounded-md hover:bg-blue-700">
                           {url.shortUrl}
                         </a>
                       </TableCell>
                       <TableCell className="hidden md:table-cell max-w-xs truncate">{url.originalUrl}</TableCell>
                       <TableCell className="hidden sm:table-cell">{new Date(url.createdAt).toLocaleString()}</TableCell>
                       <TableCell className="text-right">
-                        <Button variant="ghost" size="icon" onClick={() => setSelectedUrl(url)}>
+                        <Button variant="ghost" size="icon" onClick={() => setSelectedUrl(url)} className="bg-blue-600 hover:bg-blue-700 text-white">
                           <QrCodeIcon className="w-5 h-5" />
                         </Button>
                       </TableCell>
@@ -122,9 +122,9 @@ export default function MyUrlsPage() {
               />
             </div>
             <div className="flex justify-center gap-2 mt-4">
-              <Button variant="outline" size="sm" onClick={() => downloadQRCode('png')}>Download PNG</Button>
+              <Button size="sm" onClick={() => downloadQRCode('png')} className="bg-blue-600 hover:bg-blue-700 text-white">Download PNG</Button>
             </div>
-            <Button variant="outline" className="w-full mt-4" onClick={() => setSelectedUrl(null)}>Close</Button>
+            <Button className="w-full mt-4 bg-blue-600 hover:bg-blue-700 text-white" onClick={() => setSelectedUrl(null)}>Close</Button>
           </div>
         </div>
       )}
