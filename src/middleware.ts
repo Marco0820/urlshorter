@@ -1,22 +1,62 @@
-// src/middleware.ts
-import { NextRequest } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import createIntlMiddleware from 'next-intl/middleware';
 import { locales, defaultLocale } from './i18n';
 
-export default createIntlMiddleware({
+// A list of all known public-facing page paths.
+// The middleware will check if a request path corresponds to one of these.
+// If it does, it's treated as a normal page for internationalization.
+// Otherwise, it's assumed to be a short link.
+const publicPaths = [
+  '/',
+  '/login',
+  '/register',
+  '/features/branded-domains',
+  '/features/custom-links',
+  '/features/how-it-works',
+  '/features/link-analytics',
+  '/my-urls',
+  '/test',
+  // Note: /analytics/[shortCode] is dynamic, so we just check for the prefix.
+  '/analytics'
+];
+
+const intlMiddleware = createIntlMiddleware({
   locales,
   defaultLocale,
   localePrefix: 'always',
   localeDetection: true,
 });
 
+export default function middleware(request: NextRequest) {
+  const { pathname } = request.nextUrl;
+
+  // A request is for a public page if:
+  // 1. It's the root path (`/` or `/en`, `/zh`, etc.).
+  // 2. The path includes a known public path prefix.
+  const isPublicPage =
+    pathname === '/' ||
+    locales.some(l => pathname === `/${l}`) ||
+    publicPaths.some(path => {
+      if (path === '/') return false; // Already handled
+      // Use .includes() for paths that have dynamic sub-routes like /analytics/xyz
+      if (path === '/analytics') return pathname.includes(path);
+      // Use .endsWith() for other paths for more exact matching.
+      return pathname.endsWith(path);
+    });
+
+  if (isPublicPage) {
+    // It's a page, so let the i18n middleware handle it.
+    return intlMiddleware(request);
+  }
+
+  // It's not a known page, so treat it as a short link.
+  // Rewrite the request internally to the API handler.
+  const rewriteUrl = new URL(`/api/redirect${pathname}`, request.url);
+  return NextResponse.rewrite(rewriteUrl);
+}
+
 export const config = {
-  // 只匹配需要国际化处理的路径
-  // 这将跳过所有看起来像短链接的路径，以及 API 调用和静态文件
-  matcher: [
-    // 明确匹配根路径
-    '/',
-    // 匹配所有带有语言前缀的页面
-    '/(zh|en)/:path*',
-  ]
+  // This matcher is crucial: it runs on all paths except for
+  // internal Next.js assets and API routes.
+  matcher: ['/((?!api|_next/static|_next/image|favicon.ico).*)'],
 };
