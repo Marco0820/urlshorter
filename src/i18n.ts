@@ -4,7 +4,8 @@ import {getRequestConfig} from 'next-intl/server';
 import en from './messages/en.json';
 import zh from './messages/zh.json';
 
-const locales = ['en', 'zh'];
+export const locales = ['en', 'zh'];
+export const defaultLocale = 'en';
 
 const messages: {[key: string]: any} = {
   en,
