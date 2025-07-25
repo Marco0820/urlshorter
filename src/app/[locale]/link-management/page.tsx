@@ -30,10 +30,10 @@ const LinkManagementPage: React.FC = () => {
         </p>
         <div className="flex gap-8 justify-center flex-wrap">
           {features.map((f) => (
-            <div key={f.title} className="bg-white p-6 rounded-lg w-full sm:w-80 shadow-lg text-center">
+            <div key={f.title} className="bg-tinyurl-blue text-white p-6 rounded-lg w-full sm:w-80 shadow-lg text-center">
               {f.icon}
               <h3 className="text-xl font-semibold mb-3">{f.title}</h3>
-              <p className="text-gray-600">{f.description}</p>
+              <p className="text-gray-200">{f.description}</p>
             </div>
           ))}
         </div>

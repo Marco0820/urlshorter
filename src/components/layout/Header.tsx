@@ -42,7 +42,7 @@ export function Header() {
               {t('home')}
             </Button>
           </Link>
-          <Link href="/link-management" passHref>
+          <Link href="/my-urls" passHref>
             <Button variant="ghost" className="text-white hover:bg-sky-500 hover:text-white px-4 py-2 rounded">
               {t('myUrls')}
             </Button>
