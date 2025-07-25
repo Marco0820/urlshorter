@@ -68,50 +68,50 @@ export async function GET(
 
     const parsedAnalytics = parseAnalyticsData(analyticsData);
     
-    const ip = request.headers.get('x-forwarded-for')?.split(',')[0].trim() || '127.0.0.1';
-    const userAgentHeader = request.headers.get('user-agent') || '';
+    const ipAddress = request.headers.get('x-forwarded-for')?.split(',')[0].trim() || '127.0.0.1';
+    const userAgent = request.headers.get('user-agent') || '';
 
-    const yesterday = new Date();
-    yesterday.setDate(yesterday.getDate() - 1);
-
+    const DEBOUNCE_SECONDS = 10;
     const existingClick = await db.click.findFirst({
       where: {
         urlId: url.id,
-        ip,
-        userAgent: userAgentHeader,
+        ipAddress,
+        userAgent,
         timestamp: {
-          gte: yesterday
-        }
-      }
+          gte: new Date(Date.now() - DEBOUNCE_SECONDS * 1000),
+        },
+      },
     });
 
     const isUnique = !existingClick;
 
-    await db.click.create({
-      data: {
-        urlId: url.id,
-        ip,
-        userAgent: userAgentHeader,
-        referer,
-        browser: parsedAnalytics.browser,
-        browserVersion: parsedAnalytics.browserVersion,
-        os: parsedAnalytics.os,
-        osVersion: parsedAnalytics.osVersion,
-        device: parsedAnalytics.device,
-        country: parsedAnalytics.country,
-        city: parsedAnalytics.city,
-        region: parsedAnalytics.region,
-        latitude: parsedAnalytics.latitude,
-        longitude: parsedAnalytics.longitude,
-        utmSource: parsedAnalytics.utmSource,
-        utmMedium: parsedAnalytics.utmMedium,
-        utmCampaign: parsedAnalytics.utmCampaign,
-        utmTerm: parsedAnalytics.utmTerm,
-        utmContent: parsedAnalytics.utmContent,
-        isBot: parsedAnalytics.isBot,
-        isUnique,
-      }
-    });
+    if(isUnique) {
+      await db.click.create({
+        data: {
+          urlId: url.id,
+          ipAddress,
+          userAgent,
+          referer,
+          browser: parsedAnalytics.browser,
+          browserVersion: parsedAnalytics.browserVersion,
+          os: parsedAnalytics.os,
+          osVersion: parsedAnalytics.osVersion,
+          device: parsedAnalytics.device,
+          country: parsedAnalytics.country,
+          city: parsedAnalytics.city,
+          region: parsedAnalytics.region,
+          latitude: parsedAnalytics.latitude,
+          longitude: parsedAnalytics.longitude,
+          utmSource: parsedAnalytics.utmSource,
+          utmMedium: parsedAnalytics.utmMedium,
+          utmCampaign: parsedAnalytics.utmCampaign,
+          utmTerm: parsedAnalytics.utmTerm,
+          utmContent: parsedAnalytics.utmContent,
+          isBot: parsedAnalytics.isBot,
+        }
+      });
+    }
+
 
     const targetUrl = url.originalUrl;
     
