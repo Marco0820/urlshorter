@@ -23,6 +23,7 @@ export default function Home() {
   const tToast = useTranslations('Toasts');
   const tPopup = useTranslations('Popups');
   const tError = useTranslations('Errors');
+  const tFeatures = useTranslations('FeaturesSection');
 
   const { data: session } = useSession();
   const [longUrl, setLongUrl] = useState('');
@@ -36,6 +37,7 @@ export default function Home() {
   const [agreedToTerms, setAgreedToTerms] = useState(true);
   const [showQrCode, setShowQrCode] = useState(false);
   const [showShare, setShowShare] = useState(false);
+  const [showOriginalUrl, setShowOriginalUrl] = useState(false);
   const qrCodeRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -56,6 +58,16 @@ export default function Home() {
   const handleCopy = () => {
     if (!result?.shortUrl) return;
     navigator.clipboard.writeText(result.shortUrl).then(() => {
+      setShowCopySuccess(true);
+      setTimeout(() => {
+        setShowCopySuccess(false);
+      }, 3000); // Hide after 3 seconds
+    });
+  };
+
+  const handleCopyOriginal = () => {
+    if (!result?.originalUrl) return;
+    navigator.clipboard.writeText(result.originalUrl).then(() => {
       setShowCopySuccess(true);
       setTimeout(() => {
         setShowCopySuccess(false);
@@ -129,7 +141,7 @@ export default function Home() {
     a.href = pngUrl;
     a.download = `${result.shortCode}.png`;
     document.body.appendChild(a);
-    a.click();
+a.click();
     document.body.removeChild(a);
   };
 
@@ -198,11 +210,11 @@ export default function Home() {
                           className="h-5 w-5 rounded border-gray-300 text-blue-600 focus:ring-blue-500 mt-1"
                         />
                         <label htmlFor="terms" className="text-sm text-gray-600">
-                          {t('form_terms_agree')}{' '}
-                          <Link href="/tos" className="underline hover:text-blue-800 text-blue-600">{t('form_terms_terms')}</Link>,{' '}
-                          <Link href="/privacy" className="underline hover:text-blue-800 text-blue-600">{t('form_terms_privacy')}</Link>,{' '}
-                          {t('form_terms_and')}{' '}
-                          <Link href="/cookies" className="underline hover:text-blue-800 text-blue-600">{t('form_terms_cookies')}</Link>
+                          {t.rich('form_terms', {
+                            terms: (chunks) => <Link href="/tos" className="underline hover:text-blue-800 text-blue-600">{chunks}</Link>,
+                            privacy: (chunks) => <Link href="/privacy" className="underline hover:text-blue-800 text-blue-600">{chunks}</Link>,
+                            cookies: (chunks) => <Link href="/cookies" className="underline hover:text-blue-800 text-blue-600">{chunks}</Link>,
+                          })}
                         </label>
                       </div>
 
@@ -223,8 +235,9 @@ export default function Home() {
                          </label>
                          <Input
                            value={result.originalUrl}
-                           className="bg-gray-100 border-gray-300 rounded-md py-2 text-gray-800"
+                           className="bg-gray-100 border-gray-300 rounded-md py-2 text-gray-800 cursor-pointer"
                            readOnly
+                           onClick={() => setShowOriginalUrl(true)}
                          />
                        </div>
                        <div className="space-y-2">
@@ -274,7 +287,7 @@ export default function Home() {
                            <BarChart3 className="w-4 h-4 mr-2" />
                            {t('result_get_analytics')}
                          </Button>
-                         <Link href="/link-management" passHref className="flex-1">
+                         <Link href="/my-urls" passHref className="flex-1">
                            <Button variant="outline" className="w-full text-white">{t('result_my_urls')}</Button>
                          </Link>
                          <Button onClick={handleShortenAnother} variant="outline" className="flex-1 text-white">{t('result_shorten_another')}</Button>
@@ -339,6 +352,34 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Features Section */}
+      <section className="py-20 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold text-gray-800 tracking-tight">{tFeatures('title')}</h2>
+            <p className="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">{tFeatures('subtitle')}</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="bg-white p-6 rounded-lg shadow-md">
+              <h3 className="text-xl font-semibold text-gray-800 mb-2">{tFeatures('feature_1_title')}</h3>
+              <p className="text-gray-600">{tFeatures('feature_1_text')}</p>
+            </div>
+            <div className="bg-white p-6 rounded-lg shadow-md">
+              <h3 className="text-xl font-semibold text-gray-800 mb-2">{tFeatures('feature_2_title')}</h3>
+              <p className="text-gray-600">{tFeatures('feature_2_text')}</p>
+            </div>
+            <div className="bg-white p-6 rounded-lg shadow-md">
+              <h3 className="text-xl font-semibold text-gray-800 mb-2">{tFeatures('feature_3_title')}</h3>
+              <p className="text-gray-600">{tFeatures('feature_3_text')}</p>
+            </div>
+            <div className="bg-white p-6 rounded-lg shadow-md">
+              <h3 className="text-xl font-semibold text-gray-800 mb-2">{tFeatures('feature_4_title')}</h3>
+              <p className="text-gray-600">{tFeatures('feature_4_text')}</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Copy Success Notification */}
       {showCopySuccess && (
         <div className="fixed top-24 right-4 bg-green-600 text-white p-3 rounded-md shadow-lg z-50 flex items-center transition-opacity duration-300">
@@ -396,6 +437,28 @@ export default function Home() {
               <Button variant="outline" size="sm" onClick={downloadQRCode}>{tPopup('download_png')}</Button>
             </div>
             <Button variant="outline" className="w-full mt-4" onClick={() => setShowQrCode(false)}>{tPopup('close')}</Button>
+          </div>
+        </div>
+      )}
+
+      {showOriginalUrl && result && (
+        <div 
+          className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+          onClick={() => setShowOriginalUrl(false)}
+        >
+          <div 
+            className="bg-white p-6 rounded-lg shadow-xl relative w-full max-w-lg"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <Button variant="ghost" size="icon" className="absolute top-2 right-2" onClick={() => setShowOriginalUrl(false)}><X className="w-4 h-4" /></Button>
+            <h3 className="text-lg font-bold mb-4 text-center">{tPopup('original_url_title')}</h3>
+            <div className="bg-gray-100 p-4 rounded-md text-gray-800 break-all mb-4">
+              {result.originalUrl}
+            </div>
+            <Button className="w-full" onClick={handleCopyOriginal}>
+              <CopyIcon className="w-4 h-4 mr-2" />
+              {t('result_copy')}
+            </Button>
           </div>
         </div>
       )}

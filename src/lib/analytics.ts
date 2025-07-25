@@ -1,13 +1,19 @@
-import { nanoid } from 'nanoid';
+import { customAlphabet } from 'nanoid';
+
+const nanoid = customAlphabet('abcdefghijklmnopqrstuvwxyz0123456789', 8);
 
 /**
- * Generate a unique short code
+ * Generate a unique short code.
+ * If a custom alias is provided, it will be sanitized and used.
+ * Otherwise, a random 8-character code will be generated.
  */
 export function generateShortCode(customAlias?: string): string {
   if (customAlias) {
+    // Sanitize custom alias: lowercase, remove special chars except hyphen and underscore
     return customAlias.toLowerCase().replace(/[^a-z0-9-_]/g, '');
   }
-  return nanoid(8);
+  // Generate a random 8-character code
+  return nanoid();
 }
 
 /**
@@ -60,29 +66,25 @@ export function generateAIInsights(analytics: any): string[] {
 /**
  * Parse UTM parameters from a URL
  */
-export function parseUTMParams(url: string): Record<string, string> {
-    const params: Record<string, string> = {};
-    try {
-        const urlObj = new URL(url);
-        const searchParams = urlObj.searchParams;
-
-        if (searchParams.has('utm_source')) {
-            params.utm_source = searchParams.get('utm_source')!;
-        }
-        if (searchParams.has('utm_medium')) {
-            params.utm_medium = searchParams.get('utm_medium')!;
-        }
-        if (searchParams.has('utm_campaign')) {
-            params.utm_campaign = searchParams.get('utm_campaign')!;
-        }
-        if (searchParams.has('utm_term')) {
-            params.utm_term = searchParams.get('utm_term');
-        }
-        if (searchParams.has('utm_content')) {
-            params.utm_content = searchParams.get('utm_content');
-        }
-    } catch (error) {
-        // Invalid URL, ignore
-    }
-    return params;
+export function parseUTMParams(url: string) {
+  try {
+    const urlObj = new URL(url);
+    const utmParams = urlObj.searchParams;
+    return {
+      source: utmParams.get('utm_source') || '',
+      medium: utmParams.get('utm_medium') || '',
+      campaign: utmParams.get('utm_campaign') || '',
+      term: utmParams.get('utm_term') || '',
+      content: utmParams.get('utm_content') || '',
+    };
+  } catch (error) {
+    console.error('Invalid URL for UTM parsing:', error);
+    return {
+      source: '',
+      medium: '',
+      campaign: '',
+      term: '',
+      content: '',
+    };
+  }
 }

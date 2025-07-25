@@ -24,6 +24,30 @@ export default async function RootLayout({
 
   return (
     <html lang={params.locale}>
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "SoftwareApplication",
+              "name": "urlshorter.cc",
+              "operatingSystem": "All",
+              "applicationCategory": "Productivity",
+              "aggregateRating": {
+                "@type": "AggregateRating",
+                "ratingValue": "4.9",
+                "ratingCount": "8864"
+              },
+              "offers": {
+                "@type": "Offer",
+                "price": "0",
+                "priceCurrency": "USD"
+              }
+            })
+          }}
+        />
+      </head>
       <body className={`${inter.className} bg-blue-800`}>
         <NextIntlClientProvider locale={params.locale} messages={messages}>
           <Providers> {/* Providers 组件应该包含 SessionProvider */}

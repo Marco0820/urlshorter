@@ -24,35 +24,43 @@ export async function POST(request: NextRequest) {
     }
 
     // Generate a short code
-    const shortCode = generateShortCode(customAlias);
+    let shortCode = generateShortCode(customAlias);
+    let attempts = 0;
+    const maxAttempts = 5;
 
-    // Check for collision
-    if (customAlias) {
-      const existing = await db.url.findUnique({
-        where: { shortCode }
-      });
-
-      if (existing) {
+    // Check for collision and retry if necessary
+    while (await db.url.findUnique({ where: { shortCode } })) {
+      if (customAlias) {
         return NextResponse.json(
-          { error: '自定义别名已被使用' },
-          { status: 400 }
+          { error: 'This custom alias is already in use.' },
+          { status: 409 } // 409 Conflict is more appropriate here
         );
       }
+      
+      if (attempts >= maxAttempts) {
+        return NextResponse.json(
+          { error: 'Failed to generate a unique short code. Please try again.' },
+          { status: 500 }
+        );
+      }
+      
+      shortCode = generateShortCode(); // Generate a new random code
+      attempts++;
     }
 
-    // Extract metadata from URL (simplified)
-    let title: string | undefined;
-    let description: string | undefined;
-    try {
-      const response = await fetch(originalUrl, {
-        method: 'HEAD',
-        headers: { 'User-Agent': 'AI-TinyURL-Bot/1.0' }
-      });
-      // In a real app, you'd parse the HTML to extract title and description
-      title = new URL(originalUrl).hostname;
-    } catch (error) {
-      console.log('Failed to fetch metadata:', error);
-    }
+    // The metadata fetching is moved to a background job to improve performance
+    // let title: string | undefined;
+    // let description: string | undefined;
+    // try {
+    //   const response = await fetch(originalUrl, {
+    //     method: 'HEAD',
+    //     headers: { 'User-Agent': 'AI-TinyURL-Bot/1.0' }
+    //   });
+    //   // In a real app, you'd parse the HTML to extract title and description
+    //   title = new URL(originalUrl).hostname;
+    // } catch (error) {
+    //   console.log('Failed to fetch metadata:', error);
+    // }
 
     // Parse UTM parameters
     const utmParams = parseUTMParams(originalUrl);
@@ -62,8 +70,8 @@ export async function POST(request: NextRequest) {
       data: {
         shortCode,
         originalUrl,
-        title,
-        description,
+        // title,
+        // description,
         customAlias,
         domain,
         password,

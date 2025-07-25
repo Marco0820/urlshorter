@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Trash2, QrCode as QrCodeIcon } from 'lucide-react';
+import { Trash2, QrCode as QrCodeIcon, X, Copy as CopyIcon } from 'lucide-react';
 import { QRCodeCanvas as QRCode } from 'qrcode.react';
 import Link from 'next/link';
 
@@ -18,6 +18,8 @@ interface ShortUrl {
 export default function MyUrlsPage() {
   const [urls, setUrls] = useState<ShortUrl[]>([]);
   const [selectedUrl, setSelectedUrl] = useState<ShortUrl | null>(null);
+  const [showOriginalUrl, setShowOriginalUrl] = useState(false);
+  const [showQrCode, setShowQrCode] = useState(false);
   const qrCodeRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -28,6 +30,13 @@ export default function MyUrlsPage() {
   const handleClearHistory = () => {
     localStorage.removeItem('tinyurls');
     setUrls([]);
+  };
+
+  const handleCopyOriginal = () => {
+    if (!selectedUrl) return;
+    navigator.clipboard.writeText(selectedUrl.originalUrl).then(() => {
+      // You can add a toast notification here for copy success
+    });
   };
 
   const downloadQRCode = (format: 'svg' | 'png') => {
@@ -85,10 +94,26 @@ export default function MyUrlsPage() {
                           {url.shortUrl}
                         </a>
                       </TableCell>
-                      <TableCell className="hidden md:table-cell max-w-xs truncate">{url.originalUrl}</TableCell>
+                      <TableCell 
+                        className="hidden md:table-cell max-w-xs truncate cursor-pointer"
+                        onClick={() => {
+                          setSelectedUrl(url);
+                          setShowOriginalUrl(true);
+                        }}
+                      >
+                        {url.originalUrl}
+                      </TableCell>
                       <TableCell className="hidden sm:table-cell">{new Date(url.createdAt).toLocaleString()}</TableCell>
                       <TableCell className="text-right">
-                        <Button variant="ghost" size="icon" onClick={() => setSelectedUrl(url)} className="bg-blue-600 hover:bg-blue-700 text-white">
+                        <Button 
+                          variant="ghost" 
+                          size="icon" 
+                          onClick={() => {
+                            setSelectedUrl(url);
+                            setShowQrCode(true);
+                          }}
+                          className="bg-blue-600 hover:bg-blue-700 text-white"
+                        >
                           <QrCodeIcon className="w-5 h-5" />
                         </Button>
                       </TableCell>
@@ -103,10 +128,32 @@ export default function MyUrlsPage() {
         </Card>
       </div>
 
-      {selectedUrl && (
+      {showOriginalUrl && selectedUrl && (
         <div 
           className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
-          onClick={() => setSelectedUrl(null)}
+          onClick={() => setShowOriginalUrl(false)}
+        >
+          <div 
+            className="bg-white p-6 rounded-lg shadow-xl relative w-full max-w-lg"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <Button variant="ghost" size="icon" className="absolute top-2 right-2" onClick={() => setShowOriginalUrl(false)}><X className="w-4 h-4" /></Button>
+            <h3 className="text-lg font-bold mb-4 text-center">Original URL</h3>
+            <div className="bg-gray-100 p-4 rounded-md text-gray-800 break-all mb-4">
+              {selectedUrl.originalUrl}
+            </div>
+            <Button className="w-full" onClick={handleCopyOriginal}>
+              <CopyIcon className="w-4 h-4 mr-2" />
+              Copy
+            </Button>
+          </div>
+        </div>
+      )}
+
+      {showQrCode && selectedUrl && (
+        <div 
+          className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+          onClick={() => setShowQrCode(false)}
         >
           <div 
             className="bg-white p-6 rounded-lg shadow-xl"
@@ -124,7 +171,7 @@ export default function MyUrlsPage() {
             <div className="flex justify-center gap-2 mt-4">
               <Button size="sm" onClick={() => downloadQRCode('png')} className="bg-blue-600 hover:bg-blue-700 text-white">Download PNG</Button>
             </div>
-            <Button className="w-full mt-4 bg-blue-600 hover:bg-blue-700 text-white" onClick={() => setSelectedUrl(null)}>Close</Button>
+            <Button className="w-full mt-4 bg-blue-600 hover:bg-blue-700 text-white" onClick={() => setShowQrCode(false)}>Close</Button>
           </div>
         </div>
       )}

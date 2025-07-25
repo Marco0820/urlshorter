@@ -47,7 +47,7 @@ export function Header() {
               {t('myUrls')}
             </Button>
           </Link>
-          <Button variant="ghost" className="text-white hover:bg-sky-500 hover:text-white px-4 py-2 rounded hidden" disabled>
+          <Button variant="ghost" className="text-white hover:bg-sky-500 hover:text-white px-4 py-2 rounded" disabled>
             {t('plans')}
           </Button>
           <Button variant="ghost" className="text-white hover:bg-sky-500 hover:text-white px-4 py-2 rounded" disabled>
