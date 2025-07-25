@@ -31,7 +31,7 @@ export function Header() {
         <div className="flex items-center">
           <Link href="/" passHref>
             <h1 className="font-title text-white text-4xl tracking-wide cursor-pointer">
-              TINYURL-AI
+              URL Shortener
             </h1>
           </Link>
         </div>

@@ -7,7 +7,7 @@
     "form_customize": "Customize your link",
     "form_alias_placeholder": "custom-alias (optional)",
     "form_terms": "I agree to the {terms}, {privacy}, and {cookies}",
-    "form_button": "Shorten URL",
+    "form_button": "urlshorter.cc",
     "form_button_loading": "Shortening...",
     "result_original_url": "Original URL",
     "result_short_url": "Short URL",

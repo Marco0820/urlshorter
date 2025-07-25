@@ -7,7 +7,7 @@
     "form_customize": "自定义您的链接",
     "form_alias_placeholder": "自定义别名（可选）",
     "form_terms": "我同意{terms}、{privacy}和{cookies}",
-    "form_button": "缩短链接",
+    "form_button": "urlshorter.cc",
     "form_button_loading": "正在缩短...",
     "result_original_url": "原始链接",
     "result_short_url": "短链接",

@@ -6,7 +6,7 @@ import ClientBody from "./ClientBody";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "TINYURL-AI",
+  title: "urlshorter",
   description: "AI Powered URL Shortener and Analytics Platform",
 };
 

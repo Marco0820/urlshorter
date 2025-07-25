@@ -6,7 +6,7 @@ import validator from 'validator';
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { originalUrl, customAlias, domain = 'tinyurlai.com', password, maxClicks, expiresAt } = body;
+    const { originalUrl, customAlias, domain = 'urlshorter.cc', password, maxClicks, expiresAt } = body;
 
     // Validate URL
     if (!originalUrl || !validator.isURL(originalUrl)) {
