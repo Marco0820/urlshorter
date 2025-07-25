@@ -49,6 +49,7 @@ model Click {
   device    String?
   browser   String?
   os        String?
+  isBot     Boolean  @default(false)
 }
 
 model ABTest {
