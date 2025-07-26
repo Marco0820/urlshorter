@@ -45,6 +45,9 @@ export const metadata: Metadata = {
     description: 'Change long URLs into tiny, shareable links in seconds.',
     images: ['/og-image.png'],
   },
+  icons: {
+    icon: '/logo.png',
+  },
 };
 
 

@@ -61,6 +61,7 @@
     "network_error": "A network error occurred."
   },
   "Header": {
+    "title": "URL Shortener",
     "home": "Home",
     "myUrls": "My URLs",
     "plans": "Plans",

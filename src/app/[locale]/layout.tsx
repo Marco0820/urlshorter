@@ -24,30 +24,9 @@ export default async function RootLayout({
   const messages = await getMessages();
 
   return (
-    <html lang={params.locale}>
+    <>
       <head>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "SoftwareApplication",
-              "name": "urltiny.cc",
-              "operatingSystem": "All",
-              "applicationCategory": "Productivity",
-              "aggregateRating": {
-                "@type": "AggregateRating",
-                "ratingValue": "4.9",
-                "ratingCount": "8864"
-              },
-              "offers": {
-                "@type": "Offer",
-                "price": "0",
-                "priceCurrency": "USD"
-              }
-            })
-          }}
-        />
+        <link rel="icon" href={`/favicon.ico?v=${new Date().getTime()}`} />
       </head>
       <body className={`${inter.className} bg-blue-800`}>
         <NextIntlClientProvider locale={params.locale} messages={messages}>
@@ -59,6 +38,6 @@ export default async function RootLayout({
           </Providers>
         </NextIntlClientProvider>
       </body>
-    </html>
+    </>
   );
 }

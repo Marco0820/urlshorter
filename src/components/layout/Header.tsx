@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -18,7 +19,6 @@ export function Header() {
   const t = useTranslations('Header');
 
   const handleLocaleChange = (newLocale: string) => {
-    // Manually construct the new path
     const currentPath = window.location.pathname;
     const pathSegments = currentPath.split('/');
     pathSegments[1] = newLocale;
@@ -27,16 +27,19 @@ export function Header() {
 
   return (
     <header className="px-4 lg:px-20 py-6 relative z-10 bg-blue-800">
-      <nav className="grid grid-cols-3 items-center">
+      <nav className="grid grid-cols-[auto_1fr_auto] items-center">
         <div className="flex items-center">
           <Link href="/" passHref>
-            <h1 className="font-title text-white text-4xl tracking-wide cursor-pointer">
-              URL Shortener
-            </h1>
+            <div className="flex items-center cursor-pointer">
+              <img src="/logo.png" alt="Logo" width={100} height={100} className="mr-3"/>
+              <h1 className="font-title text-white text-4xl tracking-wide">
+                {t('title')}
+              </h1>
+            </div>
           </Link>
         </div>
         
-        <div className="hidden md:flex items-center bg-tinyurl-teal rounded-lg col-start-2 justify-self-center">
+        <div className="hidden md:flex items-center bg-tinyurl-teal rounded-lg justify-self-center">
           <Link href="/" passHref>
             <Button variant="ghost" className="text-white hover:bg-sky-500 hover:text-white px-4 py-2 rounded">
               {t('home')}
@@ -74,6 +77,9 @@ export function Header() {
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
+        </div>
+
+        <div className="justify-self-end hidden md:flex items-center">
           {session ? (
             <Button variant="ghost" className="text-white hover:bg-sky-500 hover:text-white px-4 py-2 rounded" onClick={() => signOut()}>
               {t('signOut')}
@@ -106,10 +112,6 @@ export function Header() {
                 </DropdownMenuContent>
             </DropdownMenu>
           </div>
-        </div>
-
-        <div className="justify-self-end flex items-center">
-          {/* Placeholder for the third grid column */}
         </div>
       </nav>
     </header>

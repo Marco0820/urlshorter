@@ -61,7 +61,8 @@
     "network_error": "网络错误"
   },
   "Header": {
-    "home": "首页",
+    "title": "URL缩短器",
+    "home": "主页",
     "myUrls": "我的链接",
     "plans": "套餐",
     "blog": "博客",

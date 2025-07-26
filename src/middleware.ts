@@ -58,5 +58,8 @@ export default function middleware(request: NextRequest) {
 export const config = {
   // This matcher is crucial: it runs on all paths except for
   // internal Next.js assets and API routes.
-  matcher: ['/((?!api|_next/static|_next/image|favicon.ico).*)'],
+  // It also ignores files with extensions (e.g. .png, .jpg) to allow static assets.
+  matcher: [
+    '/((?!api|_next/static|_next/image|favicon.ico|.*\\..*).*)',
+  ],
 };
