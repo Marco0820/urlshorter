@@ -11,8 +11,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/features/link-analytics',
     '/features/how-it-works',
     '/link-management',
-    '/my-urls',
-    '/analytics'
   ];
 
   const pages = locales.flatMap(locale =>
