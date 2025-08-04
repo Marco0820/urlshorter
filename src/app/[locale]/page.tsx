@@ -211,9 +211,9 @@ a.click();
                         />
                         <label htmlFor="terms" className="text-sm text-gray-600">
                           {t.rich('form_terms', {
-                            terms: (chunks) => <Link href="/tos" className="underline hover:text-blue-800 text-blue-600">{chunks}</Link>,
-                            privacy: (chunks) => <Link href="/privacy" className="underline hover:text-blue-800 text-blue-600">{chunks}</Link>,
-                            cookies: (chunks) => <Link href="/cookies" className="underline hover:text-blue-800 text-blue-600">{chunks}</Link>,
+                            terms: (chunks) => <Link href="/tos" className="underline hover:text-blue-800 text-blue-600" target="_blank" rel="noopener noreferrer">{chunks}</Link>,
+                            privacy: (chunks) => <Link href="/privacy" className="underline hover:text-blue-800 text-blue-600" target="_blank" rel="noopener noreferrer">{chunks}</Link>,
+                            cookies: (chunks) => <Link href="/cookies" className="underline hover:text-blue-800 text-blue-600" target="_blank" rel="noopener noreferrer">{chunks}</Link>,
                           })}
                         </label>
                       </div>

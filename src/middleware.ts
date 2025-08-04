@@ -1,65 +1,72 @@
+// src/middleware.ts
 import { NextRequest, NextResponse } from 'next/server';
-import createIntlMiddleware from 'next-intl/middleware';
+import createMiddleware from 'next-intl/middleware';
 import { locales, defaultLocale } from './i18n';
 
-// A list of all known public-facing page paths.
-// The middleware will check if a request path corresponds to one of these.
-// If it does, it's treated as a normal page for internationalization.
-// Otherwise, it's assumed to be a short link.
-const publicPaths = [
+// A list of all known pages in the app.
+// This is used to distinguish between a page request and a short URL request.
+const APP_PAGES = [
   '/',
+  '/tos',
+  '/privacy',
+  '/cookies',
   '/login',
   '/register',
-  '/features/branded-domains',
-  '/features/custom-links',
-  '/features/how-it-works',
-  '/features/link-analytics',
+  '/features',
+  '/analytics',
   '/my-urls',
-  '/test',
-  // Note: /analytics/[shortCode] is dynamic, so we just check for the prefix.
-  '/analytics'
+  '/test', // From src/app/test/page.tsx
 ];
 
-const intlMiddleware = createIntlMiddleware({
+// Create the next-intl middleware for handling internationalization.
+const intlMiddleware = createMiddleware({
   locales,
   defaultLocale,
-  localePrefix: 'always',
-  localeDetection: true,
+  localePrefix: 'as-needed'
 });
 
-export default function middleware(request: NextRequest) {
+export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  // A request is for a public page if:
-  // 1. It's the root path (`/` or `/en`, `/zh`, etc.).
-  // 2. The path includes a known public path prefix.
-  const isPublicPage =
-    pathname === '/' ||
-    locales.some(l => pathname === `/${l}`) ||
-    publicPaths.some(path => {
-      if (path === '/') return false; // Already handled
-      // Use .includes() for paths that have dynamic sub-routes like /analytics/xyz
-      if (path === '/analytics') return pathname.includes(path);
-      // Use .endsWith() for other paths for more exact matching.
-      return pathname.endsWith(path);
-    });
-
-  if (isPublicPage) {
-    // It's a page, so let the i18n middleware handle it.
-    return intlMiddleware(request);
+  // Skip middleware for API routes.
+  if (pathname.startsWith('/api/')) {
+    return NextResponse.next();
   }
 
-  // It's not a known page, so treat it as a short link.
-  // Rewrite the request internally to the API handler.
-  const rewriteUrl = new URL(`/api/redirect${pathname}`, request.url);
-  return NextResponse.rewrite(rewriteUrl);
+  const hasLocale = locales.some(loc => pathname.startsWith(`/${loc}/`));
+  
+  // A path is considered a page if it has a locale or if it's in our list of known pages.
+  // The check for pages needs to be `startsWith` for sub-pages like /features/custom-links
+  const isAppPage = hasLocale || APP_PAGES.some(page => {
+    // Exact match for root page or pages without sub-routes
+    if (pathname === page) return true;
+    // Starts with check for pages that have sub-routes (e.g., /features/...)
+    if (page !== '/') return pathname.startsWith(`${page}/`);
+    return false;
+  });
+
+  // If it's not an app page and not the root, we assume it's a short URL.
+  if (!isAppPage && pathname !== '/') {
+    // This is likely a short URL. Rewrite to the redirect API.
+    const shortCode = pathname.slice(1); // Remove leading '/'
+    const url = request.nextUrl.clone();
+    url.pathname = `/api/redirect/${shortCode}`;
+    return NextResponse.rewrite(url);
+  }
+
+  // If it's an app page, let the i18n middleware handle it.
+  return intlMiddleware(request);
 }
 
 export const config = {
-  // This matcher is crucial: it runs on all paths except for
-  // internal Next.js assets and API routes.
-  // It also ignores files with extensions (e.g. .png, .jpg) to allow static assets.
   matcher: [
-    '/((?!api|_next/static|_next/image|favicon.ico|.*\\..*).*)',
+    /*
+     * Match all request paths except for the ones starting with:
+     * - _next/static (static files)
+     * - _next/image (image optimization files)
+     * - favicon.ico (favicon file)
+     * - assets like images
+     */
+    '/((?!_next/static|_next/image|favicon.ico|logo.png|og.png).*)',
   ],
 };

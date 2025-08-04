@@ -1,21 +1,19 @@
 // src/i18n.ts
 import {notFound} from 'next/navigation';
 import {getRequestConfig} from 'next-intl/server';
-import en from './messages/en.json';
-import zh from './messages/zh.json';
-
+ 
+// Can be imported from a shared config
 export const locales = ['en', 'zh'];
 export const defaultLocale = 'en';
-
-const messages: {[key: string]: any} = {
-  en,
-  zh
-};
-
-export default getRequestConfig(async ({locale}) => {
+ 
+export default getRequestConfig(async () => {
+  // Validate that the incoming `locale` parameter is valid
+  const locale = 'en';
+ 
   if (!locales.includes(locale as any)) notFound();
-
+ 
   return {
-    messages: messages[locale]
+    locale,
+    messages: (await import(`./messages/${locale}.json`)).default
   };
 });

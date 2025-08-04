@@ -56,7 +56,7 @@ export async function GET(
     const utmParams = {
       source: request.nextUrl.searchParams.get('utm_source') || undefined,
       medium: request.nextUrl.searchParams.get('utm_medium') || undefined,
-      campaign: request.nextUrl.searchParams.get('utm_campaign') || undefined,
+      campaign: request.nextUrl.search_params.get('utm_campaign') || undefined,
       term: request.nextUrl.searchParams.get('utm_term') || undefined,
       content: request.nextUrl.searchParams.get('utm_content') || undefined,
     };
@@ -111,7 +111,6 @@ export async function GET(
         }
       });
     }
-
 
     const targetUrl = url.originalUrl;
     

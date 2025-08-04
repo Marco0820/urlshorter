@@ -4,6 +4,7 @@ import {NextIntlClientProvider} from 'next-intl';
 import {getMessages, setRequestLocale} from 'next-intl/server';
 import ClientBody from "../ClientBody";
 import { Header } from "@/components/layout/Header";
+import { Footer } from "@/components/layout/Footer"; // Import the Footer
 import Providers from "../Providers";
 import "../globals.css";
 
@@ -20,6 +21,7 @@ export default async function RootLayout({
   children: React.ReactNode;
   params: {locale: string};
 }) {
+  // Using the locale parameter from the URL, we can set the language for the request.
   setRequestLocale(params.locale);
   const messages = await getMessages();
 
@@ -30,10 +32,15 @@ export default async function RootLayout({
       </head>
       <body className={`${inter.className} bg-blue-800`}>
         <NextIntlClientProvider locale={params.locale} messages={messages}>
-          <Providers> {/* Providers 组件应该包含 SessionProvider */}
+          <Providers>
             <ClientBody>
-              <Header />
-              {children}
+              <div className="flex flex-col min-h-screen">
+                <Header />
+                <main className="flex-grow">
+                  {children}
+                </main>
+                <Footer />
+              </div>
             </ClientBody>
           </Providers>
         </NextIntlClientProvider>

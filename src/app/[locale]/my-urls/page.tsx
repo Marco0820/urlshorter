@@ -122,7 +122,14 @@ export default function MyUrlsPage() {
                 </TableBody>
               </Table>
             ) : (
-              <p className="text-gray-500 text-center py-8">You haven't created any TinyURLs yet.</p>
+              <div className="text-center py-8">
+                <p className="text-gray-500 mb-4">You haven't created any TinyURLs yet.</p>
+                <Link href="/" passHref>
+                  <Button className="bg-blue-600 hover:bg-blue-700 text-white">
+                    Create your first short link
+                  </Button>
+                </Link>
+              </div>
             )}
           </CardContent>
         </Card>
