@@ -48,6 +48,18 @@ const nextConfig = {
       },
     ],
   },
+  async rewrites() {
+    return [
+      {
+        source: '/ads.txt',
+        destination: '/ads.txt',
+      },
+      {
+        source: '/robots.txt',
+        destination: '/robots.txt',
+      },
+    ];
+  },
 };
 
 // ✅ 用 withNextIntl 包装 config
