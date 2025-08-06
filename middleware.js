@@ -11,5 +11,5 @@ module.exports = createMiddleware({
 });
 
 module.exports.config = {
-  matcher: ['/', '/(zh|en)/:path*']
+  matcher: ['/((?!api|_next/static|_next/image|favicon.ico|ads.txt|robots.txt).*)', '/(zh|en)/:path*']
 }; 
