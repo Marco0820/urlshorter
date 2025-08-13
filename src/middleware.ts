@@ -34,6 +34,15 @@ export function middleware(request: NextRequest) {
   }
 
   const hasLocale = locales.some(loc => pathname === `/${loc}` || pathname.startsWith(`/${loc}/`));
+  const strippedPathname = hasLocale
+    ? (() => {
+        for (const loc of locales) {
+          if (pathname === `/${loc}`) return '/';
+          if (pathname.startsWith(`/${loc}/`)) return pathname.slice(loc.length + 1); // remove /{loc}
+        }
+        return pathname;
+      })()
+    : pathname;
   
   // A path is considered a page if it has a locale or if it's in our list of known pages.
   // The check for pages needs to be `startsWith` for sub-pages like /features/custom-links
@@ -46,9 +55,9 @@ export function middleware(request: NextRequest) {
   });
 
   // If it's not an app page and not the root, we assume it's a short URL.
-  if (!isAppPage && pathname !== '/') {
+  if (!isAppPage && strippedPathname !== '/') {
     // This is likely a short URL. Rewrite to the redirect API.
-    const shortCode = pathname.slice(1); // Remove leading '/'
+    const shortCode = strippedPathname.slice(1); // Remove leading '/'
     const url = request.nextUrl.clone();
     url.pathname = `/api/redirect/${shortCode}`;
     return NextResponse.rewrite(url);

@@ -19,10 +19,11 @@ export default async function RootLayout({
   params,
 }: {
   children: React.ReactNode;
-  params: {locale: string};
+  params: Promise<{locale: string}>;
 }) {
   // Using the locale parameter from the URL, we can set the language for the request.
-  setRequestLocale(params.locale);
+  const { locale } = await params;
+  setRequestLocale(locale);
   const messages = await getMessages();
 
   return (
@@ -31,7 +32,7 @@ export default async function RootLayout({
         <link rel="icon" href={`/favicon.ico?v=${new Date().getTime()}`} />
       </head>
       <body className={`${inter.className} bg-blue-800`}>
-        <NextIntlClientProvider locale={params.locale} messages={messages}>
+        <NextIntlClientProvider locale={locale} messages={messages}>
           <Providers>
             <ClientBody>
               <div className="flex flex-col min-h-screen">
