@@ -9,7 +9,7 @@ export async function GET(
   try {
     const { shortCode } = await context.params;
 
-    const url = await db.url.findUnique({
+    const url = await db.url.findFirst({
       where: {
         shortCode,
         isActive: true
