@@ -33,7 +33,7 @@ export function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
-  const hasLocale = locales.some(loc => pathname.startsWith(`/${loc}/`));
+  const hasLocale = locales.some(loc => pathname === `/${loc}` || pathname.startsWith(`/${loc}/`));
   
   // A path is considered a page if it has a locale or if it's in our list of known pages.
   // The check for pages needs to be `startsWith` for sub-pages like /features/custom-links
