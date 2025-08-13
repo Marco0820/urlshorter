@@ -5,10 +5,10 @@ import { Click } from '@prisma/client';
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { shortCode: string } }
+  context: { params: Promise<{ shortCode: string }> }
 ) {
   try {
-    const { shortCode } = params;
+    const { shortCode } = await context.params;
 
     // Find the URL
     const url = await db.url.findUnique({

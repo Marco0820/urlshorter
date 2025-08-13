@@ -4,10 +4,10 @@ import { parseAnalyticsData, AnalyticsData } from '@/lib/analytics.server';
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { shortCode: string } }
+  context: { params: Promise<{ shortCode: string }> }
 ) {
   try {
-    const { shortCode } = params;
+    const { shortCode } = await context.params;
 
     const url = await db.url.findUnique({
       where: {
@@ -56,7 +56,7 @@ export async function GET(
     const utmParams = {
       source: request.nextUrl.searchParams.get('utm_source') || undefined,
       medium: request.nextUrl.searchParams.get('utm_medium') || undefined,
-      campaign: request.nextUrl.search_params.get('utm_campaign') || undefined,
+      campaign: request.nextUrl.searchParams.get('utm_campaign') || undefined,
       term: request.nextUrl.searchParams.get('utm_term') || undefined,
       content: request.nextUrl.searchParams.get('utm_content') || undefined,
     };
