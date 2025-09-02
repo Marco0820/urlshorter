@@ -3,6 +3,8 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import ClientBody from "./ClientBody";
 import Script from "next/script";
+import { AdSenseProvider } from '@/lib/AdSenseContext';
+import AdSenseScript from '@/components/AdSenseScript';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -58,28 +60,25 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <Script
-        id="adsbygoogle-init"
-        strategy="afterInteractive"
-        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4690050292021329"
-        crossOrigin="anonymous"
-      />
-      <Script
-        strategy="afterInteractive"
-        src="https://www.googletagmanager.com/gtag/js?id=G-SM3H8HK2TP"
-      />
-      <Script id="google-analytics" strategy="afterInteractive">
-        {`
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-        
-          gtag('config', 'G-SM3H8HK2TP');
-        `}
-      </Script>
-      <ClientBody>
-        {children}
-      </ClientBody>
+      <AdSenseProvider>
+        <AdSenseScript />
+        <Script
+          strategy="afterInteractive"
+          src="https://www.googletagmanager.com/gtag/js?id=G-SM3H8HK2TP"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+          
+            gtag('config', 'G-SM3H8HK2TP');
+          `}
+        </Script>
+        <ClientBody>
+          {children}
+        </ClientBody>
+      </AdSenseProvider>
     </html>
   );
 }

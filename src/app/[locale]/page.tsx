@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { useSession, signIn, signOut } from 'next-auth/react';
 import {useTranslations} from 'next-intl';
+import { useAdSense } from '@/lib/AdSenseContext';
 
 
 export default function Home() {
@@ -39,6 +40,14 @@ export default function Home() {
   const [showShare, setShowShare] = useState(false);
   const [showOriginalUrl, setShowOriginalUrl] = useState(false);
   const qrCodeRef = useRef<HTMLDivElement>(null);
+  const { setShowAdsense } = useAdSense();
+
+  useEffect(() => {
+    setShowAdsense(true);
+    return () => {
+      setShowAdsense(false);
+    };
+  }, [setShowAdsense]);
 
   useEffect(() => {
     // Check if cookie consent has been given

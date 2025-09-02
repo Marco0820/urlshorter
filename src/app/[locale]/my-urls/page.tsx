@@ -7,6 +7,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Trash2, QrCode as QrCodeIcon, X, Copy as CopyIcon } from 'lucide-react';
 import { QRCodeCanvas as QRCode } from 'qrcode.react';
 import Link from 'next/link';
+import { useAdSense } from '@/lib/AdSenseContext';
 
 interface ShortUrl {
   shortCode: string;
@@ -21,6 +22,12 @@ export default function MyUrlsPage() {
   const [showOriginalUrl, setShowOriginalUrl] = useState(false);
   const [showQrCode, setShowQrCode] = useState(false);
   const qrCodeRef = useRef<HTMLDivElement>(null);
+  const { setShowAdsense } = useAdSense();
+
+  useEffect(() => {
+    setShowAdsense(true);
+    return () => setShowAdsense(false);
+  }, [setShowAdsense]);
 
   useEffect(() => {
     const storedUrls = JSON.parse(localStorage.getItem('tinyurls') || '[]');
@@ -122,13 +129,23 @@ export default function MyUrlsPage() {
                 </TableBody>
               </Table>
             ) : (
-              <div className="text-center py-8">
-                <p className="text-gray-500 mb-4">You haven't created any TinyURLs yet.</p>
+              <div className="text-center py-8 px-4">
+                <h2 className="text-2xl font-semibold text-gray-700 mb-4">Welcome to Your URL Dashboard!</h2>
+                <p className="text-gray-500 mb-6">You haven't created any short links yet. Let's get started!</p>
                 <Link href="/" passHref>
-                  <Button className="bg-blue-600 hover:bg-blue-700 text-white">
-                    Create your first short link
+                  <Button className="bg-blue-600 hover:bg-blue-700 text-white mb-8">
+                    Create Your First Short Link
                   </Button>
                 </Link>
+
+                <div className="mt-8 text-left max-w-2xl mx-auto">
+                  <h3 className="text-xl font-semibold text-gray-700 mb-4">Why use a URL Shortener?</h3>
+                  <ul className="list-disc list-inside text-gray-600 space-y-2">
+                    <li><b>Easy to Share:</b> Short links are easier to share on social media, in emails, and in messages.</li>
+                    <li><b>Track Clicks:</b> Gain insights into how many people are clicking your links.</li>
+                    <li><b>QR Codes:</b> Instantly generate a QR code for any of your short links for print and offline sharing.</li>
+                  </ul>
+                </div>
               </div>
             )}
           </CardContent>
